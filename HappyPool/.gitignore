@@ -1,0 +1,3 @@
+*.cpython*
+
+db.sqlite3
