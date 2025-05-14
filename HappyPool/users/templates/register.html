@@ -1,35 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-center">Register</h1>
+<form action = "" method = "post" style="margin-left: 10%;margin-right: 10%;">
+    {% csrf_token %}
 
-
-<form action="register/" method="POST">
     <div class="form-group">
-        <label for="{{ form.first_name.id_for_first_name }}">First Name:</label>
-        {{form.first_name}}
-    </div>
-    <div class="form-group">
-        <label for="{{ form.last_name.id_for_last_name }}">Last Name:</label>
-        {{form.last_name}}
-    </div>
-    <div class="form-group">
-        <label for="{{ form.email.id_for_email }}">Email:</label>
-      {{form.email}}
-    </div>
-    <div class="form-group">
-        <label for="{{ form.license.id_for_license }}">Liscence:</label>
-        {{form.license}}
+        <label for="FirstName">First Name</label>
+        <input type="text" class="form-control" id="FirstName" name="first_name" required>
     </div>
 
     <div class="form-group">
-        <label for="{{ form.profile_photo.id_for_profile_photo }}">Profile Photo:</label>
-        {{form.profile_photo}}
+        <label for="LastName">Last Name</label>
+        <input type="text" class="form-control" id="LastName" name="last_name" required>
     </div>
+
     <div class="form-group">
-        <label for="{{ form.password.id_for_password }}">Password:</label>
-      {{form.password}}
+        <label for="Email">Email address</label>
+        <input type="email" class="form-control" id="Email" name="email" required>
     </div>
+
     <!-- <div class="form-group">
-        <label for="Password2">Confirm Password</label>
-        {{form.confirm_password}}
+        <label for="Contact">Contact Number</label>
+        <input type="text" class="form-control" id="Contact" name="phnum">
     </div> -->
-    
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <div class="form-group">
+        <label for="Profile">Profile Photo</label>
+        <input type="file" class="form-control-file" id="Profile" name="profilephoto">
+    </div>
+
+    <div class="form-group">
+        <label for="liscence">Liscence Number</label>
+        <input type="text" class="form-control" id="liscence" name="liscence">
+    </div>
+
+    <div class="form-group">
+        <label for="Role">Role</label>
+        <select id="Role" class="form-control" name="role" required>
+            <option selected></option>
+            <option>Rider</option>
+            <option>Passenger</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="Password1">Password</label>
+        <input type="password" class="form-control" id="Password1" autocomplete="new-password" name="password1" required>
+    </div>
+
+
+    <div class="form-group">
+        <label for="Password2">Confirm Password</label>
+        <input type="password" class="form-control" id="Password2" name="password2" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
 </form>
+
+{% if error %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <ul>
+        {% for err in error %}
+            <li><strong>{{ err }}</strong></li>
+        {% endfor %}
+        </ul>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>  
+        
+{% endif %}
+{% endblock %}
