@@ -3,7 +3,6 @@ from django.shortcuts import render
 
 from users.utilities import hash_function
 
-from .forms import *
 from .models import *
 
 
@@ -47,9 +46,31 @@ def register(request):
                                        license_number=liscence,
                                        role=role)
             print("user created....")
-            return render(request, "register.html")
 
     # phone_number = request_contents.get("phnum")
     # pri   nt(first_name,"==========================================")
 	# logic of view will be implemented here
     return render(request, "register.html")
+
+
+def login_user(request):
+    if request.method == "POST":
+        # errors = []
+        request_contents = request.POST
+        email = request_contents.get("email")
+        password = request_contents.get("password1")
+        try:
+            user_obj = UserProfile.objects.get(email=email)
+        except:
+            errors = "Invalid email id."
+            return render(request,"login.html",{"error":errors})
+        if hash_function(password) != user_obj.password:
+            print(hash_function(password))
+            print(user_obj.password)
+            errors = "Incorrect Password"
+            return render(request,"login.html",{"error":errors})
+        print("Logged in succesfully")
+    return render(request,"login.html")
+
+
+
